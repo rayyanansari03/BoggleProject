@@ -10,10 +10,10 @@
 #include <array>
 #include "dictionary.h"
 
-using std::string;  
-using u32 = uint_least32_t; 
+using std::string;
+using u32 = uint_least32_t;
 using engine = std::mt19937;
-    
+
 static int const NUM_CUBES = 16;
 static string const CUBE_ONE = "aaeegn";
 static string const CUBE_TWO = "abbjoo";
@@ -31,46 +31,57 @@ static string const CUBE_THIRTEEN = "eiosst";
 static string const CUBE_FOURTEEN = "elrtty";
 static string const CUBE_FIFTEEN = "himnqu";
 static string const CUBE_SIXTEEN = "hlnnrz";
-      
- 
+
+
 class Board {
-    public:
-        string result;
-        int humanScore;
-        int computerScore;
-        Dictionary dict;
-        Dictionary wordsFound;
-        vector<string> computerList;
-        vector<string> humanList;
+public:
+    string result;
+    int humanScore;
+    int computerScore;
+    Dictionary dict;
+    Dictionary wordsFound;
+    vector<string> computerList;
+    vector<string> humanList;
 
-        char boardArray[4][4];
-        bool checkedArray[4][4] = {{false, false, false, false}, {false, false, false, false}, {false, false, false, false}, {false, false, false, false}};
-        std::array<string, 16> CUBE_ARRAY = {CUBE_ONE, CUBE_TWO, CUBE_THREE, 
-                CUBE_FOUR, CUBE_FIVE, CUBE_SIX, CUBE_SEVEN, CUBE_EIGHT,
-                CUBE_NINE, CUBE_TEN, CUBE_ELEVEN, CUBE_TWELVE, CUBE_THIRTEEN,
-                CUBE_FOURTEEN, CUBE_FIFTEEN, CUBE_SIXTEEN};
- 
-        Board();
-        Board(string& myfile, string _userInput);
-        ~Board();
+    char boardArray[4][4];
+    bool checkedArray[4][4] = { {false, false, false, false}, {false, false, false, false}, {false, false, false, false}, {false, false, false, false} };
+    std::array<string, 16> CUBE_ARRAY = { CUBE_ONE, CUBE_TWO, CUBE_THREE,
+            CUBE_FOUR, CUBE_FIVE, CUBE_SIX, CUBE_SEVEN, CUBE_EIGHT,
+            CUBE_NINE, CUBE_TEN, CUBE_ELEVEN, CUBE_TWELVE, CUBE_THIRTEEN,
+            CUBE_FOURTEEN, CUBE_FIFTEEN, CUBE_SIXTEEN };
 
-        void fillBoard();
-        void displayBoard();  
-        bool inBounds(int row,int col);
-        string getRandomLetters();
-        int getRandomIndex();
+    Board();
+    Board(string& myfile, string _userInput);
+    ~Board();
 
-        int getHumanScore();
-        void humanPlayersTurn();
+    void fillBoard();
+    void displayBoard();
+    bool inBounds(int row, int col);
+    string getRandomLetters();
+    int getRandomIndex();
 
-        int getComputerScore();
-        void solveBoard();
-        void searchForWord(int row, int col, string currPrefix);
+    int getHumanScore();
+    void humanPlayersTurn();
 
-        int score(int word_length);
-        int score();
-        void printComputerArray();
-        void printHumanArray();
+    int getComputerScore();
+    void solveBoard();
+    void searchForWord(int row, int col, string currPrefix);
+
+    int score(int word_length);
+    int score();
+    void printComputerArray();
+    void printHumanArray();
+
+
+    bool checkValidWord(string _word);
+    bool HumanWordSearch(string word);
+
+    friend std::ostream& operator<<(std::ostream& stream, const
+        Board& boggleBoard); // << operator
 };
 
 #endif 
+
+
+
+ 
