@@ -20,6 +20,8 @@ Board::Board() {
 
 }
 
+
+
 //Parameterized constructor gives predetermined board.
 //If an incorrect amount of charcters are given for the board 
 // then the board will default to a random setup.
@@ -49,7 +51,24 @@ Board::Board(string& myfile, string _userInput) {
 
     input.close();
 }
+//Copy COnstructor
+Board::Board(const Board& copy) {
 
+    result = copy.result;
+    humanScore = copy.humanScore;
+    computerScore = copy.computerScore;
+    dict = copy.dict;
+    wordsFound = copy.wordsFound;
+    computerList = copy.computerList;
+    humanList = copy.humanList;
+
+}
+
+Board::Board(Board&& move) noexcept {
+    
+    *this = move;
+
+}
 //Deconstructor
 Board::~Board() {
     dict.deleteNodes(dict.root);
@@ -58,6 +77,22 @@ Board::~Board() {
     dict.currNode = NULL;
     wordsFound.currNode = NULL;
     wordsFound.root = NULL;
+}
+//Operator definition for constructors
+
+Board& Board::operator=(const Board& copy) { // Copy = operator
+    result = copy.result;
+    humanScore = copy.humanScore;
+    computerScore = copy.computerScore;
+    dict = copy.dict;
+    wordsFound = copy.wordsFound;
+    computerList = copy.computerList;
+    humanList = copy.humanList;
+    return *this;
+}
+Board& Board::operator=(Board&& move) noexcept { // Move = operator
+    *this = move;
+    return *this;
 }
 
 //Generates a random number for use by function 'getRandomLetters'.
@@ -229,7 +264,6 @@ bool Board::HumanWordSearch(string word) {
     if (checkValidWord(temp)) {
 
         humanList.push_back(word);
-        humanScore++;
         return true;
     
     }
