@@ -52,7 +52,13 @@ public:
 
     Board();
     Board(string& myfile, string _userInput);
+
+    Board(const Board& copy);
+    Board(Board&& move) noexcept;
     ~Board();
+
+    Board& operator=(const Board& copy);
+    Board& operator=(Board&& move) noexcept;
 
     void fillBoard();
     void displayBoard();
